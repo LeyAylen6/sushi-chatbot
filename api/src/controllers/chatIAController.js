@@ -19,14 +19,6 @@ const chat = async (req, res, next) => {
     const productsString = JSON.stringify(products)
     const faqsString = JSON.stringify(faqs)
 
-    // const formatProductsForPrompt = (products) => {
-    //     return products
-    //         .map((p) => `ID: ${p._id}, Nombre: ${p.name}, Description: ${p.description}, Precio: $${p.price}`)
-    //         .join("\n");
-    // };
-
-    // const formattedProducts = formatProductsForPrompt(products);
-
     const prompt = `Eres un asistente amable de un restaurante de sushi. Responde siguiendo estas reglas:
         - Si pide el menú, usa esta información: ${productsString} y devuelve el nombre y precio del producto, NO DEBES agregarlo al array de \`products\`, solo devolverlo en \`response\`. Aclara cuando envias el menu que para hacer un pedido te tienen que dar su nombre y lo que quieren pedir.
         - Si quiere hacer un pedido y no envia productos, envíale el menú nuevamente y pídele que indique qué desea y que te de su nombre para el pedido.

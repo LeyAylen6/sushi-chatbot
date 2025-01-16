@@ -57,7 +57,6 @@ describe('Product Controller Tests', () => {
 
             expect(Product.prototype.save).toHaveBeenCalled();
             expect(res.status).toHaveBeenCalledWith(201);
-            // expect(res.json).toHaveBeenCalledWith(createProductResponseMock);
         });
 
         it('should return 400 if name and price is missing', async () => {
