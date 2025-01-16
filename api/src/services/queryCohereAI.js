@@ -11,7 +11,7 @@ const queryCohereAI = async (prompt) => {
     const body = {
         model: "command-xlarge-nightly",
         prompt,
-        max_tokens: 150,
+        max_tokens: 500,
         temperature: 0.5,
         top_p: 1
     }
