@@ -1,4 +1,4 @@
-const FAQ = require("../models/FAQ");
+const FAQ = require("../models/Faq");
 
 const getAll = () => {
     return FAQ.find();

@@ -1,5 +1,5 @@
 const { default: mongoose } = require('mongoose');
-const FAQ = require('../models/FAQ');
+const FAQ = require('../models/Faq');
 const InvalidObjectIdError = require('../utils/InvalidObjectIdError');
 const MissingFieldsError = require('../utils/MissingFieldsError');
 const NotFoundError = require('../utils/notFoundError');
