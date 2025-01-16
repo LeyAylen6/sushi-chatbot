@@ -2,7 +2,7 @@ const orderService = require('./../services/orderService')
 const productService = require('./../services/productService')
 
 const MissingFieldsError = require('../utils/MissingFieldsError');
-const NotFoundError = require('../utils/notFoundError');
+const NotFoundError = require('../utils/NotFoundError');
 
 const getAllOrders = async (req, res, next) => {
     try {
