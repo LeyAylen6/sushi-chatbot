@@ -1,0 +1,45 @@
+.background {
+    background-image: url('../../assets/sushi-fondo.png');
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    min-height: 99vh;
+}
+
+.homeContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 70%;
+    width: 40%;
+    text-align: center;
+    background-size: cover;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.menuItem {
+    font-size: 1.5rem;
+    padding: 50px;
+    background-color: #ff6347;
+    color: white;
+    text-decoration: none;
+    margin: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.menuItem:hover {
+    background-color: #e55347;
+}

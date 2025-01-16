@@ -1,0 +1,53 @@
+h2 {
+    font-size: 40px !important;
+    text-align: center;
+}
+
+.dashboardContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 100vh;
+}
+
+.tabContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 8%;
+    margin-bottom: 20px;
+}
+
+.tabButton {
+    font-size: 25px;
+    width: 30%;
+    height: 80%;
+    background-color: #ff6347;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin: 0 10px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.tabButton:hover {
+    background-color: #e55347;
+}
+
+.contentContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
+
+.contentContainer>div {
+    margin-bottom: 40px;
+}
