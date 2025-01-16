@@ -2,7 +2,7 @@ const { default: mongoose } = require('mongoose');
 const FAQ = require('../models/Faq');
 const InvalidObjectIdError = require('../utils/InvalidObjectIdError');
 const MissingFieldsError = require('../utils/MissingFieldsError');
-const NotFoundError = require('../utils/notFoundError');
+const NotFoundError = require('../utils/NotFoundError');
 const faqService = require('./../services/faqService')
 
 const getFAQs = async (req, res, next) => {
