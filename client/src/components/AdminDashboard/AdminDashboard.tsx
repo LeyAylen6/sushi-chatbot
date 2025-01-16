@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styles from './AdminDashboard.module.css';
 import AdminItemForm from '../AdminItems/AdminItems';
-import { getAllFaqs, getAllOrders, getAllProducts } from '../../service/apiService';
+import { createFaq, createProduct, getAllFaqs, getAllOrders, getAllProducts } from '../../service/apiService';
+import { faqsFields, faqState, productFields, productState } from './constants';
 
 const AdminDashboard: React.FC = () => {
     const [selectedTab, setSelectedTab] = useState<'products' | 'faqs' | 'orders'>('products');
@@ -18,11 +19,25 @@ const AdminDashboard: React.FC = () => {
     const renderTabContent = () => {
         switch (selectedTab) {
             case 'products':
-                return <AdminItemForm type="products" existingItems={products} />;
+                return <AdminItemForm
+                    type="products"
+                    state={productState}
+                    inputFields={productFields}
+                    createFunction={createProduct}
+                    existingItems={products}
+                />;
             case 'faqs':
-                return <AdminItemForm type="faqs" existingItems={faqs} />;
+                return <AdminItemForm
+                    type="faqs" state={faqState}
+                    inputFields={faqsFields}
+                    createFunction={createFaq}
+                    existingItems={faqs}
+                />;
             case 'orders':
-                return <AdminItemForm type="orders" existingItems={orders} />;
+                return <AdminItemForm
+                    type="orders"
+                    existingItems={orders}
+                />;
             default:
                 return null;
         }

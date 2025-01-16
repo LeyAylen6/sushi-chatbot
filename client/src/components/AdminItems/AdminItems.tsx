@@ -1,68 +1,95 @@
 import React, { useState } from 'react';
-import styles from './AdminItems.module.css';
+import styles from './AdminItems.module.css'
+import { AdminItemFormProps, Types } from '../AdminDashboard/interfaces';
 
-interface AdminItemFormProps {
-    type: 'products' | 'faqs' | 'orders';
-    existingItems: Array<any>;
-}
+const AdminItemForm: React.FC<AdminItemFormProps> = ({
+    type,
+    existingItems,
+    createFunction,
+    state,
+    inputFields
+}) => {
+    const [newItem, setNewItem] = useState(state);
 
-const AdminItemForm: React.FC<AdminItemFormProps> = ({ type, existingItems }) => {
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState<number | string>('');
-
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const newItem = { name, description, price: type === 'orders' ? undefined : price };
-        console.log(`${type.charAt(0).toUpperCase() + type.slice(1)} creado:`, newItem);
-
-        setName('');
-        setDescription('');
-        setPrice('');
+        createFunction && await createFunction(newItem)
+        setNewItem(state);
     };
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = event.target
+
+        setNewItem((prevState: any) => ({
+            ...prevState,
+            [name]: value
+        }))
+    }
+
+    const itemName = (type: keyof Types): string => {
+        const types: Types = {
+            products: "Producto",
+            faqs: 'Pregunta frecuente',
+            orders: "pedido"
+        }
+        return types[type];
+    }
 
     return (
         <div className={styles.adminContainer}>
             {type !== 'orders' && (
                 <div className={styles.formContainer}>
-                    <h2>{`Crear Nuevo ${type.charAt(0).toUpperCase() + type.slice(1)}`}</h2>
+                    <h2>{'Crear ' + itemName(type)}</h2>
                     <form onSubmit={handleSubmit} className={styles.form}>
-                        <input
-                            type="text"
-                            placeholder={`Nombre del ${type.slice(0, -1)}`}
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            required
-                            className={styles.input}
-                        />
-                        <textarea
-                            placeholder={`Descripción del ${type.slice(0, -1)}`}
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            required
-                            className={styles.textarea}
-                        />
-                        <input
-                            type="number"
-                            placeholder="Precio"
-                            value={price}
-                            onChange={(e) => setPrice(e.target.value)}
-                            required
-                            className={styles.input}
-                        />
-                        <button type="submit" className={styles.button}>Crear {type.slice(0, -1)}</button>
+                        {inputFields?.map((field) => (
+                            field.type === 'textarea' ? (
+                                <textarea
+                                    key={field.name}
+                                    placeholder={field.placeholder}
+                                    name={field.name}
+                                    value={newItem?.[field.name]}
+                                    onChange={handleChange}
+                                    required
+                                    className={styles.textarea}
+                                />
+                            ) : (
+                                <input
+                                    key={field.name}
+                                    name={field.name}
+                                    placeholder={field.placeholder}
+                                    value={newItem?.[field.name]}
+                                    onChange={handleChange}
+                                    required
+                                    className={styles.input}
+                                />
+                            )
+                        ))}
+                        <button type="submit" className={styles.button}>
+                            Crear {itemName(type)}
+                        </button>
                     </form>
                 </div>)}
             <div className={styles.existingItemsContainer}>
-                <h3>{`${type.charAt(0).toUpperCase() + type.slice(1)} Existentes`}</h3>
+                <h3>Registro actualizado</h3>
                 <ul>
-                    {existingItems?.map(item => (
+                    {existingItems?.map((item: any) => (
                         <li key={item.id}>
-                            <strong>{item.name || item.question || item.client}</strong> -
-                            {item?.description} {item?.price && ` - $${item.price}`}
-                            {item.answer}
-                            {item.state} - {`$${item.total}`}
+                            {type === 'products' && (
+                                <>
+                                    <strong>{item?.name}</strong> - {item?.description} - ${item?.price}
+                                </>
+                            )}
+                            {type === 'faqs' && (
+                                <>
+                                    <strong>{item?.question}</strong> - {item?.answer}
+                                </>
+                            )}
+                            {type === 'orders' && (
+                                <>
+                                    <strong>{item?.client}</strong> - {item?.state} - ${item?.total}
+                                </>
+                            )}
                         </li>
                     ))}
                 </ul>
@@ -70,5 +97,6 @@ const AdminItemForm: React.FC<AdminItemFormProps> = ({ type, existingItems }) =>
         </div>
     );
 };
+
 
 export default AdminItemForm;

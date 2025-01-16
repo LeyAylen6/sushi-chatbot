@@ -1,5 +1,18 @@
 import axios from "axios";
 
+interface Product {
+    name: string
+    description: string
+    price: number
+    available: boolean
+}
+
+interface Faq {
+    question: string
+    answer: string
+}
+
+
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const api = axios.create({
@@ -46,5 +59,25 @@ export const getAllFaqs = async () => {
 
     } catch (error) {
         console.error("Error fetching FAQs:", error);
+    }
+};
+
+export const createFaq = async (faq: Faq) => {
+    try {
+        const response = await api.post("/faq", faq);
+        return response.data
+
+    } catch (error) {
+        console.error("Error creating FAQ:", error);
+    }
+};
+
+export const createProduct = async (product: Product) => {
+    try {
+        const response = await api.post("/product", product);
+        return response.data
+
+    } catch (error) {
+        console.error("Error creating product:", error);
     }
 };
